@@ -1,0 +1,30 @@
+# Main site config
+
+server {
+	listen 80;
+	listen [::]:80;
+	server_name    .piston.pw;
+	return         301 https://$server_name$request_uri;
+}
+
+server {
+	server_name    .piston.pw;
+
+	# SSL configuration
+	listen 443 ssl;
+	listen [::]:443 ssl;
+
+	ssl on;
+	ssl_certificate /etc/nginx/ssl/piston.pw/piston.pw.chain.pem;
+	ssl_certificate_key /etc/nginx/ssl/piston.pw/piston.pw.key;
+
+	include snippets/strong-ssl.conf;
+
+	ssl_dhparam /etc/nginx/ssl/dhparam.pem;
+	ssl_trusted_certificate /etc/nginx/ssl/piston.pw/ocsp_chain.pem;
+
+	location / {
+		proxy_pass http://piston_nginx_1;
+	}
+}
+

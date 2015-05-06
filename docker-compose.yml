@@ -7,4 +7,5 @@ nginx:
    - data/logs:/var/log/nginx
   external_links:
    - www_nginx_1
+   - piston_nginx_1
   restart: always
