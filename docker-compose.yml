@@ -1,0 +1,10 @@
+nginx:
+  build: nginx/
+  ports:
+   - "80:80"
+   - "443:443"
+  volumes:
+   - data/logs:/var/log/nginx
+  external_links:
+   - www_nginx_1
+  restart: always
